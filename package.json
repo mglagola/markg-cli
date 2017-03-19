@@ -11,7 +11,7 @@
     "hapi": "index.js"
   },
   "author": "Mark Glagola",
-  "license": "ISC",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com:mglagola/hapi-site-generator.git"
