@@ -1,4 +1,4 @@
-# Hapi Site Generator
+# Hapi Generator
 
 Opinionated generator using [easy-generator](https://github.com/mglagola/easy-generator).
 
@@ -11,7 +11,11 @@ npm install -g hapi-site-gen
 ## Usage
 
 ```bash
-# Will create AwesomeSiteName/<compiled_template_files>
-hapi new AwesomeSiteName
+Usage:
+  $ hapi <api|site> <output-dir>
+
+Examples:
+  $ hapi api my-awesome-api
+  $ hapi site my-awesome-site
 ```
 
