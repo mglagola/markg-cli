@@ -1,10 +1,8 @@
 'use strict';
 
 const Joi = require('joi');
-const Boom = require('boom');
 const isEmpty = require('lodash/isEmpty');
 const User = require('../schemata/user');
-const Config = require('../config');
 const generateToken = require('../utils/gen-token');
 
 exports.create = {
@@ -32,7 +30,7 @@ exports.create = {
             return reply({
                 token,
                 user: user.toJSON(),
-            })
+            });
         } catch (err) {
             return reply(err);
         }
