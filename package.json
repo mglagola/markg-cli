@@ -1,5 +1,5 @@
 {
-  "name": "hapi-site-gen",
+  "name": "markg",
   "version": "2.0.0",
   "description": "",
   "main": "index.js",
@@ -8,7 +8,7 @@
     "node": ">=7.8"
   },
   "bin": {
-    "hapi": "index.js"
+    "markg": "index.js"
   },
   "author": "Mark Glagola",
   "license": "MIT",

@@ -12,10 +12,10 @@ npm install -g hapi-site-gen
 
 ```bash
 Usage:
-  $ hapi <api|site> <output-dir>
+  $ markg <api|site> <output-dir>
 
 Examples:
-  $ hapi api my-awesome-api
-  $ hapi site my-awesome-site
+  $ markg api my-awesome-api
+  $ markg site my-awesome-site
 ```
 

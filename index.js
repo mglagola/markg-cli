@@ -14,7 +14,7 @@ const chalk = require('chalk');
 const meow = require('meow');
 
 const cli = meow(`
-  Usage: hapi [cmd] <output-dir>
+  Usage: markg [cmd] <output-dir>
 
   Commands:
     site        Generates a hapi starter site
@@ -22,8 +22,8 @@ const cli = meow(`
     cli         Generates a cli starter project
 
   Examples:
-    $ hapi api my-awesome-api
-    $ hapi site my-awesome-site
+    $ markg api my-awesome-api
+    $ markg site my-awesome-site
 `);
 
 const requireValue = (name) => (value) => {
