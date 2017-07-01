@@ -17,7 +17,12 @@
     "url": "git+ssh://git@github.com:mglagola/hapi-site-generator.git"
   },
   "keywords": [
-    "generator"
+    "generator",
+    "easi",
+    "gen",
+    "hapi",
+    "cli",
+    "api"
   ],
   "bugs": {
     "url": "https://github.com/mglagola/hapi-site-generator/issues"

@@ -13,18 +13,21 @@ const create = require('./lib');
 const chalk = require('chalk');
 const meow = require('meow');
 
-const cli = meow(`
-  Usage: markg [cmd] <output-dir>
+const cli = meow({
+    description: false,
+    help: `
+    Usage: markg [cmd] [output-dir]
 
-  Commands:
-    site        Generates a hapi starter site
-    api         Generates a hapi starter api
-    cli         Generates a cli starter project
+    Commands:
+        site        Generates a hapi starter site
+        api         Generates a hapi starter api
+        cli         Generates a cli starter project
 
-  Examples:
-    $ markg api my-awesome-api
-    $ markg site my-awesome-site
-`);
+    Examples:
+        $ markg api my-awesome-api
+        $ markg site my-awesome-site
+    `,
+});
 
 const requireValue = (name) => (value) => {
     return isEmpty(value) ? `You must provide a valid ${name}!` : true;
