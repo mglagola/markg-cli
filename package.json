@@ -1,6 +1,6 @@
 {
   "name": "markg",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "",
   "main": "index.js",
   "preferGlobal": true,
@@ -14,7 +14,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com:mglagola/hapi-site-generator.git"
+    "url": "git+ssh://git@github.com:mglagola/markg-cli.git"
   },
   "keywords": [
     "generator",
@@ -25,9 +25,9 @@
     "api"
   ],
   "bugs": {
-    "url": "https://github.com/mglagola/hapi-site-generator/issues"
+    "url": "https://github.com/mglagola/markg-cli/issues"
   },
-  "homepage": "https://github.com/mglagola/hapi-site-generator#readme",
+  "homepage": "https://github.com/mglagola/markg-cli#readme",
   "devDependencies": {
     "eslint": "^3.17.1",
     "eslint-plugin-node": "^4.2.1",
