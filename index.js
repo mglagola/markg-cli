@@ -8,10 +8,29 @@ global.Promise = Promise;
 const Inquirer = require('inquirer');
 const Path = require('path');
 const isEmpty = require('lodash/isEmpty');
+const isNil = require('lodash/isNil');
 const get = require('lodash/get');
+const lowerCase = require('lodash/lowerCase');
 const create = require('./lib');
 const chalk = require('chalk');
 const meow = require('meow');
+
+const COMMANDS = {
+    'site': {
+        description: 'Generates a hapi starter site',
+        requiresMongoURL: true,
+    },
+    'api': {
+        description: 'Generates a hapi starter api',
+        requiresMongoURL: true,        
+    },
+    'cli': {
+        description: 'Generates a cli starter project',
+    },
+    'express': {
+        description: 'Generates a simple express starter project',
+    },
+};
 
 const cli = meow({
     description: false,
@@ -22,6 +41,7 @@ const cli = meow({
         site        Generates a hapi starter site
         api         Generates a hapi starter api
         cli         Generates a cli starter project
+        express     Generates a simple express starter project
 
     Examples:
         $ markg api my-awesome-api
@@ -33,8 +53,8 @@ const requireValue = (name) => (value) => {
     return isEmpty(value) ? `You must provide a valid ${name}!` : true;
 };
 
-function questions (cmd, name) {
-    const qs = [{
+function questions (cmd, name, { requiresMongoURL = false } = {}) {
+    let qs = [{
         type: 'input',
         name: 'name',
         message: 'What is the name of your project?',
@@ -66,28 +86,28 @@ function questions (cmd, name) {
         validate: requireValue('mongo URI'),
     }];
 
-    return cmd === 'cli'
-        ? qs.slice(0, qs.length - 1)
-        : qs;
+    if (!requiresMongoURL) {
+        qs = qs.slice(0, qs.length - 1);
+    }
+
+    return qs;
 }
 
 async function main (cmd, input, flags) {
-    const name = input[0];
-    const outputDir = Path.join(process.cwd(), name);
-    const qs = questions(cmd, name);
-    switch (cmd) {
-    case 'express':
-    case 'cli':
-    case 'api':
-    case 'site': {
-        const data = await Inquirer.prompt(qs);
-        await create({ outputDir, data, template: cmd });
-        break;
-    }
-    default:
+    const cmdMeta = COMMANDS[lowerCase(cmd)];
+    const isInvalidCmd = isNil(cmdMeta);
+    if (isInvalidCmd) {
         console.log(chalk.red(`Unknown command ${cmd}.`), 'See --help for usage details');
         return false;
     }
+
+    const name = input[0];
+    const outputDir = Path.join(process.cwd(), name);
+    const qs = questions(cmd, name, cmdMeta);
+
+    const data = await Inquirer.prompt(qs);
+    await create({ outputDir, data, template: cmd });
+
     console.log(chalk.green('Generated!'));
     return true;
 }
