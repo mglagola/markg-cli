@@ -1,7 +1,7 @@
 {
   "name": "markg",
-  "version": "2.0.1",
-  "description": "",
+  "version": "2.1.0",
+  "description": "Opinionated template generator",
   "main": "index.js",
   "preferGlobal": true,
   "engines": {
@@ -22,7 +22,8 @@
     "gen",
     "hapi",
     "cli",
-    "api"
+    "api",
+    "express"
   ],
   "bugs": {
     "url": "https://github.com/mglagola/markg-cli/issues"
