@@ -76,6 +76,7 @@ async function main (cmd, input, flags) {
     const outputDir = Path.join(process.cwd(), name);
     const qs = questions(cmd, name);
     switch (cmd) {
+    case 'express':
     case 'cli':
     case 'api':
     case 'site': {
