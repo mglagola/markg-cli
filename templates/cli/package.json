@@ -13,7 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "chalk": "^2.0.1",
-    "meow": "^3.7.0"
+    "meow": "git://github.com/sindresorhus/meow.git#554119b0af09cb33aea4e709c0572043cd00586d"
   },
   "devDependencies": {
     "eslint": "^4.1.1",
