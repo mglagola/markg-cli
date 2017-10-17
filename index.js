@@ -7,6 +7,7 @@ global.Promise = Promise;
 
 const Inquirer = require('inquirer');
 const Path = require('path');
+const keys = require('lodash/keys');
 const isEmpty = require('lodash/isEmpty');
 const isNil = require('lodash/isNil');
 const get = require('lodash/get');
@@ -30,6 +31,10 @@ const COMMANDS = {
     'express': {
         description: 'Generates a simple express starter project',
     },
+    'nextjs': {
+        description: 'Generates a simple nextjs starter project',
+        skipCompileForFileExtensions: ['js', 'css'],
+    },
 };
 
 const cli = meow({
@@ -42,6 +47,7 @@ const cli = meow({
         api         Generates a hapi starter api
         cli         Generates a cli starter project
         express     Generates a simple express starter project
+        nextjs      Generates a simple nextjs starter project
 
     Examples:
         $ markg api my-awesome-api
@@ -106,7 +112,8 @@ async function main (cmd, input, flags) {
     const qs = questions(cmd, name, cmdMeta);
 
     const data = await Inquirer.prompt(qs);
-    await create({ outputDir, data, template: cmd });
+    const skipCompileForFileExtensions = cmd.skipCompileForFileExtensions;
+    await create({ outputDir, data, template: cmd, skipCompileForFileExtensions });
 
     console.log(chalk.green('Generated!'));
     return true;
