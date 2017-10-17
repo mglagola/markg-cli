@@ -1,6 +1,6 @@
 {
   "name": "markg",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "description": "Opinionated template generator",
   "main": "index.js",
   "preferGlobal": true,
