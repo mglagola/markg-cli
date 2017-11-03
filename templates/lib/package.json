@@ -1,0 +1,17 @@
+{
+  "name": "{{name}}",
+  "version": "{{version}}",
+  "description": "{{description}}",
+  "author": "{{author}}",  
+  "license": "ISC",
+  "main": "index.js",
+  "engines": {
+      "node": "{{nodeVersion}}"
+  },
+  "devDependencies": {
+    "eslint": "^4.1.1",
+    "eslint-plugin-node": "^5.1.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-to-editorconfig": "^1.2.0"
+  }
+}

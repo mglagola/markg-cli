@@ -35,6 +35,9 @@ const COMMANDS = {
         description: 'Generates a simple nextjs starter project',
         skipCompileForFileExtensions: ['js', 'css'],
     },
+    'lib': {
+        description: 'Generates a simple npm lib starter project',
+    },
 };
 
 const cli = meow({
@@ -48,7 +51,8 @@ const cli = meow({
         cli         Generates a cli starter project
         express     Generates a simple express starter project
         nextjs      Generates a simple nextjs starter project
-
+        lib         Generates a simple npm lib starter project
+        
     Examples:
         $ markg api my-awesome-api
         $ markg site my-awesome-site
