@@ -15,7 +15,8 @@ const createStoreWithMiddleware = compose(
 )(createStore);
 
 function configureStore (initialState = {}) {
-    return createStoreWithMiddleware(rootReducer, initialState);
+    const extra = typeof window === 'undefined' ? undefined : window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+    return createStoreWithMiddleware(rootReducer, initialState, extra);
 }
 
 export default configureStore;
