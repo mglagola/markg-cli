@@ -1,13 +1,13 @@
 import { createReduxRequest } from 'redux-request-maker';
-import xhr from '@utils/xhr';
+import fetch from 'isomorphic-unfetch';
 
 const {
     reducer,
     request,
 } = createReduxRequest({
     actionTypePrefix: 'search',
-    callAPI: async (query, state) => xhr.get('api/fake/endpoint', query),
+    callAPI: async (query, state) => fetch('api/fake/endpoint', query),
 });
 
-export request;
+export const req = request;
 export default reducer;
