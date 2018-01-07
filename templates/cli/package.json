@@ -12,8 +12,8 @@
   "author": "{{author}}",
   "license": "ISC",
   "dependencies": {
-    "chalk": "^2.0.1",
-    "meow": "git://github.com/sindresorhus/meow.git#554119b0af09cb33aea4e709c0572043cd00586d"
+    "chalk": "^2.3.0",
+    "meow": "^4.0.0"
   },
   "devDependencies": {
     "eslint": "^4.1.1",

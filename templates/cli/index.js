@@ -16,8 +16,11 @@ const cli = meow({
       $ {{name}} -v
     `,
 }, {
-    alias: {
-        v: 'verbose',
+    flags: {
+        verbose: {
+            alias: 'v',
+            type: 'boolean',
+        },
     },
 });
 
