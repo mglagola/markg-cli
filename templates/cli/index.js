@@ -3,19 +3,16 @@
 const meow = require('meow');
 const chalk = require('chalk');
 
-const cli = meow({
-    description: false,
-    help: `
-    Usage: {{name}} [flags]
-    
-    Options:
-      --verbose, -v     Verbose logging flag
+const cli = meow(`
+Usage: {{name}} [flags]
 
-    Examples:
-      $ {{name}}
-      $ {{name}} -v
-    `,
-}, {
+Options:
+  --verbose, -v     Verbose logging flag
+
+Examples:
+  $ {{name}}
+  $ {{name}} -v
+`, {
     flags: {
         verbose: {
             alias: 'v',
