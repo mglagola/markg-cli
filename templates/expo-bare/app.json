@@ -1,0 +1,31 @@
+{
+  "expo": {
+    "name": "{{name}}",
+    "description": "{{description}}",
+    "slug": "{{slug}}",
+    "privacy": "unlisted",
+    "sdkVersion": "{{expoSDKVersion}}",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "version": "{{version}}",
+    "orientation": "portrait",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "icon": "./assets/icon.png",
+      "bundleIdentifier": "{{bundleId}}",
+      "buildNumber": "1"
+    },
+    "android": {
+      "icon": "./assets/icon.png",
+      "package": "{{bundleId}}",
+      "versionCode": 1
+    }
+  }
+}

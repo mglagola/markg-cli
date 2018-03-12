@@ -1,0 +1,40 @@
+{
+  "main": "node_modules/expo/AppEntry.js",
+  "private": true,
+  "engines": {
+    "node": ">={{nodeVersion}}"
+  },
+  "author": {
+    "name": "{{author}}"
+  },
+  "scripts": {
+    "start": "exp start",
+    "dev": "exp start --dev --tunnel",
+    "publish:production": "exp publish --release-channel production",
+    "publish:staging": "exp publish --release-channel staging",
+    "build:ios:production": "exp build:ios --release-channel production",
+    "build:android:production": "exp build:android --release-channel production",
+    "build:ios:staging": "exp build:ios --release-channel staging",
+    "build:android:staging": "exp build:android --release-channel staging",
+    "build:all:production": "exp build:android --release-channel production --non-interactive --no-publish; curl -o app.apk \"$(exp url:apk --non-interactive)\"; exp build:ios --release-channel production --non-interactive --no-publish; curl -o app.ipa \"$(exp url:ipa --non-interactive)\"",
+    "inc:build": "exptool inc:build"
+  },
+  "dependencies": {
+    "expo": "^{{expoSDKVersion}}",
+    "react": "{{reactVersion}}",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-{{expoSDKVersion}}.tar.gz"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.2",
+    "babel-preset-expo": "^4.0.0",
+    "eslint": "^4.18.2",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-config-standard-react": "^6.0.0",
+    "eslint-plugin-babel": "^4.1.2",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-react": "^7.7.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "exptool": "^0.4.7"
+  }
+}

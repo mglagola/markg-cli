@@ -24,11 +24,12 @@ $ markg --help
 
   Commands:
 
-    hapi:site <name>      Generates a hapi site starter project
-    hapi:api <name>       Generates a hapi api starter project
-    express <name>        Generates a simple express starter project
-    nextjs <name>         Generates a simple nextjs starter project
-    cli:meow <name>       Generates a meow cli starter project
-    cli:commander <name>  Generates a commander cli starter project
-    lib <name>            Generates a simple npm lib starter project
+    hapi:site [name]      Generates a hapi site starter project
+    hapi:api [name]       Generates a hapi api starter project
+    express [name]        Generates a simple express starter project
+    nextjs [name]         Generates a simple nextjs starter project
+    expo:bare [name]      Generates a bare expo (react-native) starter project
+    cli:meow [name]       Generates a meow cli starter project
+    cli:commander [name]  Generates a commander cli starter project
+    lib [name]            Generates a simple npm lib starter project
 ```

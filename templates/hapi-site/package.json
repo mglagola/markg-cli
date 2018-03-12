@@ -10,7 +10,9 @@
     "dev": "NODE_ENV=development nodemon -e js,hbs,json index.js",
     "start": "node index.js"
   },
-  "author": "{{author}}",
+  "author": {
+    "name": "{{author}}"
+  },
   "license": "ISC",
   "devDependencies": {
     "eslint": "^3.14.1",

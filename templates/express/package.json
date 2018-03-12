@@ -4,13 +4,15 @@
   "description": "{{description}}",
   "main": "index.js",
   "engines": {
-    "node": "{{nodeVersion}}"
+    "node": ">={{nodeVersion}}"
   },
   "scripts": {
     "dev": "NODE_ENV=development nodemon index.js",
     "start": "NODE_ENV=production node index.js"
   },
-  "author": "{{author}}",
+  "author": {
+    "name": "{{author}}"
+  },
   "license": "ISC",
   "dependencies": {
     "bluebird": "^3.5.0",

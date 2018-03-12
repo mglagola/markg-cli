@@ -9,7 +9,9 @@
   "bin": {
     "{{name}}": "index.js"
   },
-  "author": "{{author}}",
+  "author": {
+    "name": "{{author}}"
+  },
   "license": "ISC",
   "dependencies": {
     "chalk": "^2.3.0",

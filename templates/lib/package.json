@@ -2,7 +2,9 @@
   "name": "{{name}}",
   "version": "{{version}}",
   "description": "{{description}}",
-  "author": "{{author}}",  
+  "author": {
+    "name": "{{author}}"
+  },
   "license": "ISC",
   "main": "index.js",
   "engines": {
