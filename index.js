@@ -1,12 +1,12 @@
 #! /usr/bin/env node
 
-'use strict';
-
 const Promise = require('bluebird');
 global.Promise = Promise;
 
-const Inquirer = require('inquirer');
-const Path = require('path');
+const pkg = require('./package.json');
+const inquirer = require('inquirer');
+const program = require('commander');
+const path = require('path');
 const keys = require('lodash/keys');
 const isEmpty = require('lodash/isEmpty');
 const isNil = require('lodash/isNil');
@@ -14,56 +14,13 @@ const get = require('lodash/get');
 const lowerCase = require('lodash/lowerCase');
 const create = require('./lib');
 const chalk = require('chalk');
-const meow = require('meow');
-
-const COMMANDS = {
-    'site': {
-        description: 'Generates a hapi starter site',
-        requiresMongoURL: true,
-    },
-    'api': {
-        description: 'Generates a hapi starter api',
-        requiresMongoURL: true,        
-    },
-    'cli': {
-        description: 'Generates a cli starter project',
-    },
-    'express': {
-        description: 'Generates a simple express starter project',
-    },
-    'nextjs': {
-        description: 'Generates a simple nextjs starter project',
-        skipCompileForFileExtensions: ['js', 'css'],
-    },
-    'lib': {
-        description: 'Generates a simple npm lib starter project',
-    },
-};
-
-const cli = meow({
-    description: false,
-    help: `
-    Usage: markg [cmd] [output-dir]
-
-    Commands:
-        site        Generates a hapi starter site
-        api         Generates a hapi starter api
-        cli         Generates a cli starter project
-        express     Generates a simple express starter project
-        nextjs      Generates a simple nextjs starter project
-        lib         Generates a simple npm lib starter project
-        
-    Examples:
-        $ markg api my-awesome-api
-        $ markg site my-awesome-site
-    `,
-});
+const { logVersionCheck } = require('validate-package-version');
 
 const requireValue = (name) => (value) => {
     return isEmpty(value) ? `You must provide a valid ${name}!` : true;
 };
 
-function questions (cmd, name, { requiresMongoURL = false } = {}) {
+function questions (name, { requiresMongoURL = false } = {}) {
     let qs = [{
         type: 'input',
         name: 'name',
@@ -88,7 +45,7 @@ function questions (cmd, name, { requiresMongoURL = false } = {}) {
         type: 'input',
         name: 'nodeVersion',
         message: 'What node version are you using?',
-        default: get(process, 'versions.node', '7.8'),
+        default: get(process, 'versions.node', '9.0.0'),
     }, {
         type: 'input',
         name: 'mongoURI',
@@ -103,48 +60,121 @@ function questions (cmd, name, { requiresMongoURL = false } = {}) {
     return qs;
 }
 
-async function main (cmd, input, flags) {
-    const cmdMeta = COMMANDS[lowerCase(cmd)];
-    const isInvalidCmd = isNil(cmdMeta);
-    if (isInvalidCmd) {
-        console.log(chalk.red(`Unknown command ${cmd}.`), 'See --help for usage details');
-        return false;
-    }
-
-    const name = input[0];
-    const outputDir = Path.join(process.cwd(), name);
-    const qs = questions(cmd, name, cmdMeta);
-
-    const data = await Inquirer.prompt(qs);
-    const skipCompileForFileExtensions = cmd.skipCompileForFileExtensions;
-    await create({ outputDir, data, template: cmd, skipCompileForFileExtensions });
-
-    console.log(chalk.green('Generated!'));
-    return true;
-}
-
-(async function () {
+const tryCatchCmd = (func) => async (...args) => {
     try {
-        console.log('Flags:', cli.flags);
-        const cmd = cli.input[0];
-        const input = cli.input.slice(1, cli.input.length);
-
-        if (isEmpty(cmd)) {
-            console.log(chalk.red('Please specify a command'), 'See --help for usage details');
-            process.exit(1);
+        const success = await func(...args);
+        if (success) {
+            console.log(chalk.green('Generated!'));
+        } else {
+            console.log(chalk.red('Something went wrong generating template.'));
         }
-
-        const outputDir = input[0];
-        if (isEmpty(outputDir)) {
-            console.log(chalk.red('Please specify a output dir'), 'See --help for usage details');
-            process.exit(1);
-        }
-
-        const success = await main(cmd, input, cli.flags);
         return process.exit(success ? 0 : 1);
     } catch (error) {
         console.log(chalk.red(error.message));
         console.error(error.stack);
         return process.exit(1);
     }
-})();
+};
+
+const act = (func, ignoreVersionCheck = false) => async (...args) => {
+    if (!ignoreVersionCheck) {
+        await logVersionCheck(pkg);
+    }
+    return tryCatchCmd(func)(...args);
+};
+
+const outputDirFromName = (name) => path.join(process.cwd(), name);
+
+program
+    .command('hapi:site <name>')
+    .description('Generates a hapi site starter project')
+    .action(act(async (name) => {
+        const outputDir = outputDirFromName(name);
+        const data = await inquirer.prompt(
+            questions(name, { requiresMongoURL: true })
+        );
+        await create({ outputDir, data, template: 'hapi-site' });
+        return true;
+    }));
+
+program
+    .command('hapi:api <name>')
+    .description('Generates a hapi api starter project')
+    .action(act(async (name) => {
+        const outputDir = outputDirFromName(name);
+        const data = await inquirer.prompt(
+            questions(name, { requiresMongoURL: true })
+        );
+        await create({ outputDir, data, template: 'hapi-api' });
+        return true;
+    }));
+
+program
+    .command('express <name>')
+    .description('Generates a simple express starter project')
+    .action(act(async (name) => {
+        const outputDir = outputDirFromName(name);
+        const data = await inquirer.prompt(
+            questions(name)
+        );
+        await create({ outputDir, data, template: 'express' });
+        return true;
+    }));
+
+program
+    .command('nextjs <name>')
+    .description('Generates a simple nextjs starter project')
+    .action(act(async (name) => {
+        const outputDir = outputDirFromName(name);
+        const data = await inquirer.prompt(
+            questions(name)
+        );
+        await create({ outputDir, data, template: 'nextjs', skipCompileForFileExtensions: ['js', 'css'] });
+        return true;
+    }));
+
+program
+    .command('cli:meow <name>')
+    .description('Generates a meow cli starter project')
+    .action(act(async (name) => {
+        const outputDir = outputDirFromName(name);
+        const data = await inquirer.prompt(
+            questions(name)
+        );
+        await create({ outputDir, data, template: 'cli-meow' });
+        return true;
+    }));
+
+program
+    .command('cli:commander <name>')
+    .description('Generates a commander cli starter project')
+    .action(act(async (name) => {
+        const outputDir = outputDirFromName(name);
+        const data = await inquirer.prompt(
+            questions(name)
+        );
+        await create({ outputDir, data, template: 'cli-commander' });
+        return true;
+    }));
+
+program
+    .command('lib <name>')
+    .description('Generates a simple npm lib starter project')
+    .action(act(async (name) => {
+        const outputDir = outputDirFromName(name);
+        const data = await inquirer.prompt(
+            questions(name)
+        );
+        await create({ outputDir, data, template: 'lib' });
+        return true;
+    }));
+
+program
+    .version(pkg.version)
+    .description(pkg.description)
+    .parse(process.argv);
+
+if (isEmpty(program.args)) {
+    console.log(chalk.red('Please specify a command. Use --help to learn more.'));
+    process.exit(1);
+}

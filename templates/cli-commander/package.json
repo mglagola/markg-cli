@@ -1,0 +1,26 @@
+{
+    "name": "{{name}}",
+    "version": "{{version}}",
+    "description": "{{description}}",
+    "main": "index.js",
+    "engines": {
+      "node": ">={{nodeVersion}}"
+    },
+    "bin": {
+      "{{name}}": "index.js"
+    },
+    "author": "{{author}}",
+    "license": "ISC",
+    "dependencies": {
+      "chalk": "^2.3.0",
+      "commander": "^2.15.0",
+      "validate-package-version": "^1.0.0"
+    },
+    "devDependencies": {
+      "eslint": "^4.18.2",
+      "eslint-plugin-node": "^6.0.1",
+      "eslint-plugin-promise": "^3.7.0",
+      "eslint-to-editorconfig": "^1.2.0"
+    }
+  }
+  

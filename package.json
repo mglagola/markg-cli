@@ -1,11 +1,11 @@
 {
   "name": "markg",
-  "version": "2.5.0",
+  "version": "3.0.0",
   "description": "Opinionated template generator",
   "main": "index.js",
   "preferGlobal": true,
   "engines": {
-    "node": ">=7.8"
+    "node": ">=9.0.0"
   },
   "bin": {
     "markg": "index.js"
@@ -18,31 +18,34 @@
   },
   "keywords": [
     "generator",
-    "easi",
     "gen",
     "hapi",
     "cli",
     "api",
-    "express"
+    "express",
+    "commander",
+    "easi"
   ],
   "bugs": {
     "url": "https://github.com/mglagola/markg-cli/issues"
   },
   "homepage": "https://github.com/mglagola/markg-cli#readme",
   "devDependencies": {
-    "eslint": "^3.17.1",
-    "eslint-plugin-node": "^4.2.1",
-    "eslint-plugin-promise": "^3.5.0",
+    "eslint": "^4.18.2",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
     "eslint-to-editorconfig": "^1.2.0"
   },
   "dependencies": {
     "bluebird": "^3.5.0",
     "chalk": "^1.1.3",
+    "commander": "^2.15.0",
     "easy-generator": "^1.0.0",
     "handlebars": "^4.0.6",
     "inquirer": "^3.0.6",
     "lodash": "^4.17.4",
     "meow": "^3.7.0",
-    "mkdirp": "^0.5.1"
+    "mkdirp": "^0.5.1",
+    "validate-package-version": "^1.0.0"
   }
 }
