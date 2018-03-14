@@ -90,12 +90,17 @@ function questions (name, {
     return qs;
 }
 
+function logSuccessOutput ({ outputDir }) {
+    console.log(chalk.green('Generated!'));
+    console.log('');
+    console.log(`$ cd ${outputDir}; npm install`);
+    console.log('');    
+}
+
 const tryCatchCmd = (func) => async (...args) => {
     try {
         const success = await func(...args);
-        if (success) {
-            console.log(chalk.green('Generated!'));
-        } else {
+        if (!success) {
             console.log(chalk.red('Something went wrong generating template.'));
         }
         return process.exit(success ? 0 : 1);
@@ -124,6 +129,7 @@ program
         );
         const outputDir = outputDirFromName(data.name);
         await create({ outputDir, data, template: 'hapi-site' });
+        logSuccessOutput({ outputDir });
         return true;
     }));
 
@@ -136,6 +142,7 @@ program
         );
         const outputDir = outputDirFromName(data.name);
         await create({ outputDir, data, template: 'hapi-api' });
+        logSuccessOutput({ outputDir });        
         return true;
     }));
 
@@ -148,6 +155,7 @@ program
         );
         const outputDir = outputDirFromName(data.name);
         await create({ outputDir, data, template: 'express' });
+        logSuccessOutput({ outputDir });        
         return true;
     }));
 
@@ -160,6 +168,7 @@ program
         );
         const outputDir = outputDirFromName(data.name);
         await create({ outputDir, data, template: 'nextjs', skipCompileForFileExtensions: ['js', 'css'] });
+        logSuccessOutput({ outputDir });        
         return true;
     }));
 
@@ -171,7 +180,21 @@ program
             questions(name, { askExpoInfo: true })
         );
         const outputDir = outputDirFromName(data.name);
-        await create({ outputDir, data, template: 'expo-bare', skipCompileForFileExtensions: ['js', 'css', 'png'] });
+        await create({ outputDir, data, template: 'expo-bare', skipCompileForFileExtensions: ['js', 'png'] });
+        logSuccessOutput({ outputDir });        
+        return true;
+    }));
+
+program
+    .command('expo:redux [name]')
+    .description('Generates a redux and react-navigation boilerplate expo (react-native) project')
+    .action(act(async (name) => {
+        const data = await inquirer.prompt(
+            questions(name, { askExpoInfo: true })
+        );
+        const outputDir = outputDirFromName(data.name);
+        await create({ outputDir, data, template: 'expo-redux', skipCompileForFileExtensions: ['js', 'png'] });
+        logSuccessOutput({ outputDir });        
         return true;
     }));
 
@@ -184,6 +207,7 @@ program
         );
         const outputDir = outputDirFromName(data.name);
         await create({ outputDir, data, template: 'cli-meow' });
+        logSuccessOutput({ outputDir });        
         return true;
     }));
 
@@ -196,6 +220,7 @@ program
         );
         const outputDir = outputDirFromName(data.name);
         await create({ outputDir, data, template: 'cli-commander' });
+        logSuccessOutput({ outputDir });        
         return true;
     }));
 
@@ -208,6 +233,7 @@ program
         );
         const outputDir = outputDirFromName(data.name);
         await create({ outputDir, data, template: 'lib' });
+        logSuccessOutput({ outputDir });        
         return true;
     }));
 

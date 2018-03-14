@@ -1,0 +1,31 @@
+{
+  "expo": {
+    "name": "expo-redux",
+    "description": "",
+    "slug": "",
+    "privacy": "unlisted",
+    "sdkVersion": "25.0.0",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "icon": "./assets/icon.png",
+      "bundleIdentifier": "com.temp.bundleId",
+      "buildNumber": "1"
+    },
+    "android": {
+      "icon": "./assets/icon.png",
+      "package": "com.temp.bundleId",
+      "versionCode": 1
+    }
+  }
+}
