@@ -1,0 +1,57 @@
+after_script:
+  - exp logout
+
+cache:
+  untracked: true
+  key: "$CI_COMMIT_SHA"
+  paths:
+    - node_modules/
+
+stages:
+  - setup
+  - publish_production
+  - deploy_android_google_play
+  - deploy_ios_test_flight
+
+setup:
+  stage: setup
+  script:
+    - npm install
+  only:
+    - master
+  tags:
+    - mac
+
+publish_production:
+  stage: publish_production
+  script:
+    - exp login -u $EXPO_USERNAME -p $EXPO_PASSWORD --non-interactive
+    - exp publish --release-channel production --non-interactive
+  only:
+    - tags
+  tags:
+    - mac
+
+deploy_android_google_play:
+  stage: deploy_android_google_play
+  script:
+    - exp login -u $EXPO_USERNAME -p $EXPO_PASSWORD --non-interactive
+    - exp build:android --release-channel production --non-interactive --no-publish
+    - curl -o app.apk "$(exp url:apk --non-interactive)"
+    - fastlane supply --package_name "$(exptool android:package)" --apk "app.apk" --json_key_data "$JSON_KEY_DATA" --skip_upload_metadata --skip_upload_images --skip_upload_screenshots
+  only:
+    - tags
+  tags:
+    - mac
+
+deploy_ios_test_flight:
+  stage: deploy_ios_test_flight
+  script:
+    - exp login -u $EXPO_USERNAME -p $EXPO_PASSWORD --non-interactive
+    - exp build:ios --release-channel production --non-interactive --no-publish
+    - curl -o app.ipa "$(exp url:ipa --non-interactive)"
+    - fastlane deliver --verbose --ipa "app.ipa" --username "$ITC_EMAIL" --skip_screenshots --skip_metadata
+  only:
+    - tags
+  tags:
+    - mac
