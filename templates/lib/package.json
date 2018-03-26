@@ -10,10 +10,15 @@
   "engines": {
       "node": "{{nodeVersion}}"
   },
+  "scripts": {
+    "test": "jest"
+  },
   "devDependencies": {
+    "jest": "^22.4.2",
     "eslint": "^4.1.1",
     "eslint-plugin-node": "^5.1.0",
     "eslint-plugin-promise": "^3.5.0",
-    "eslint-to-editorconfig": "^1.2.0"
+    "eslint-to-editorconfig": "^1.2.0",
+    "eslint-plugin-jest": "^21.14.1"
   }
 }

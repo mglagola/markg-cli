@@ -2,6 +2,7 @@
     "plugins": [
       "promise",
       "node",
+      "jest"
     ],
     "extends": [
       "eslint:recommended",
@@ -9,7 +10,8 @@
     ],
     "env"     : {
       "node": true,
-      "es6": true
+      "es6": true,
+      "jest/globals": true      
     },
     "parserOptions": {
       "ecmaVersion": 2017
