@@ -9,6 +9,7 @@ const program = require('commander');
 const path = require('path');
 const isEmpty = require('lodash/isEmpty');
 const get = require('lodash/get');
+const F = require('lodash/fp');
 const create = require('./lib');
 const chalk = require('chalk');
 const slugify = require('slugify');
@@ -47,6 +48,7 @@ function questions (name, {
             type: 'input',
             name: 'author',
             message: 'Project author?',
+            default: 'Unknown',
         });
     }
 
@@ -90,6 +92,27 @@ function questions (name, {
     return qs;
 }
 
+const _questionToTypeReducer = (a, q) => {
+    a[q.name] = q.default;
+    return a;   
+};
+
+async function prompt (questions, { skipDefaultQuestions = false } = {}) {
+    if (skipDefaultQuestions) {
+        const questionsWithoutDefaults = questions.filter(x => F.isNil(x.default));
+        if (isEmpty(questionsWithoutDefaults)) {
+            return questions.reduce(_questionToTypeReducer, {});
+        } else {
+            const res = await inquirer.prompt(questionsWithoutDefaults);
+            const defaultAnswers = questions
+                .filter(x => !F.isNil(x.default))
+                .reduce(_questionToTypeReducer, {});
+            return Object.assign({}, res, defaultAnswers);
+        }
+    }
+    return inquirer.prompt(questions);
+}
+
 function logSuccessOutput ({ outputDir }) {
     console.log(chalk.green('Generated!'));
     console.log('');
@@ -123,9 +146,11 @@ const outputDirFromName = (name) => path.join(process.cwd(), slugify(name));
 program
     .command('hapi:site [name]')
     .description('Generates a hapi site starter project')
-    .action(act(async (name) => {
-        const data = await inquirer.prompt(
-            questions(name, { requiresMongoURL: true })
+    .option('-y, --skip-default-questions')
+    .action(act(async (name, options) => {
+        const data = await prompt(
+            questions(name, { requiresMongoURL: true }),
+            options
         );
         const outputDir = outputDirFromName(data.name);
         await create({ outputDir, data, template: 'hapi-site' });
@@ -136,9 +161,11 @@ program
 program
     .command('hapi:api [name]')
     .description('Generates a hapi api starter project')
-    .action(act(async (name) => {
-        const data = await inquirer.prompt(
-            questions(name, { requiresMongoURL: true })
+    .option('-y, --skip-default-questions')    
+    .action(act(async (name, options) => {
+        const data = await prompt(
+            questions(name, { requiresMongoURL: true }),
+            options
         );
         const outputDir = outputDirFromName(data.name);
         await create({ outputDir, data, template: 'hapi-api' });
@@ -149,9 +176,11 @@ program
 program
     .command('express [name]')
     .description('Generates a simple express starter project')
-    .action(act(async (name) => {
-        const data = await inquirer.prompt(
-            questions(name)
+    .option('-y, --skip-default-questions')    
+    .action(act(async (name, options) => {
+        const data = await prompt(
+            questions(name),
+            options
         );
         const outputDir = outputDirFromName(data.name);
         await create({ outputDir, data, template: 'express' });
@@ -162,9 +191,11 @@ program
 program
     .command('nextjs [name]')
     .description('Generates a simple nextjs starter project')
-    .action(act(async (name) => {
-        const data = await inquirer.prompt(
-            questions(name)
+    .option('-y, --skip-default-questions')    
+    .action(act(async (name, options) => {
+        const data = await prompt(
+            questions(name),
+            options
         );
         const outputDir = outputDirFromName(data.name);
         await create({ outputDir, data, template: 'nextjs', skipCompileForFileExtensions: ['js', 'css'] });
@@ -175,9 +206,11 @@ program
 program
     .command('expo:bare [name]')
     .description('Generates a bare expo (react-native) starter project')
-    .action(act(async (name) => {
-        const data = await inquirer.prompt(
-            questions(name, { askExpoInfo: true })
+    .option('-y, --skip-default-questions')    
+    .action(act(async (name, options) => {
+        const data = await prompt(
+            questions(name, { askExpoInfo: true }),
+            options
         );
         const outputDir = outputDirFromName(data.name);
         await create({ outputDir, data, template: 'expo-bare', skipCompileForFileExtensions: ['js', 'png'] });
@@ -188,9 +221,11 @@ program
 program
     .command('expo:redux [name]')
     .description('Generates a redux and react-navigation boilerplate expo (react-native) project')
-    .action(act(async (name) => {
-        const data = await inquirer.prompt(
-            questions(name, { askExpoInfo: true })
+    .option('-y, --skip-default-questions')    
+    .action(act(async (name, options) => {
+        const data = await prompt(
+            questions(name, { askExpoInfo: true }),
+            options
         );
         const outputDir = outputDirFromName(data.name);
         await create({ outputDir, data, template: 'expo-redux', skipCompileForFileExtensions: ['js', 'png'] });
@@ -201,9 +236,11 @@ program
 program
     .command('cli:meow [name]')
     .description('Generates a meow cli starter project')
-    .action(act(async (name) => {
-        const data = await inquirer.prompt(
-            questions(name)
+    .option('-y, --skip-default-questions')    
+    .action(act(async (name, options) => {
+        const data = await prompt(
+            questions(name),
+            options
         );
         const outputDir = outputDirFromName(data.name);
         await create({ outputDir, data, template: 'cli-meow' });
@@ -214,9 +251,11 @@ program
 program
     .command('cli:commander [name]')
     .description('Generates a commander cli starter project')
-    .action(act(async (name) => {
-        const data = await inquirer.prompt(
-            questions(name)
+    .option('-y, --skip-default-questions')    
+    .action(act(async (name, options) => {
+        const data = await prompt(
+            questions(name),
+            options
         );
         const outputDir = outputDirFromName(data.name);
         await create({ outputDir, data, template: 'cli-commander' });
@@ -227,9 +266,11 @@ program
 program
     .command('lib [name]')
     .description('Generates a simple npm lib starter project')
-    .action(act(async (name) => {
-        const data = await inquirer.prompt(
-            questions(name)
+    .option('-y, --skip-default-questions')    
+    .action(act(async (name, options) => {
+        const data = await prompt(
+            questions(name),
+            options
         );
         const outputDir = outputDirFromName(data.name);
         await create({ outputDir, data, template: 'lib' });
