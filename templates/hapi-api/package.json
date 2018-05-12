@@ -15,28 +15,28 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "eslint": "^3.14.1",
-    "eslint-plugin-node": "^3.0.5",
-    "eslint-plugin-promise": "^3.4.0",
+    "eslint": "^4.19.1",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
     "eslint-to-editorconfig": "^1.2.0",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.17.4"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "bluebird": "^3.5.0",
-    "dotenv": "^4.0.0",
-    "good": "^7.1.0",
-    "hapi": "^16.1.0",
-    "hapi-auth-jwt2": "^7.2.4",
-    "hapi-good-winston": "^1.1.1",
-    "hapi-mongoose-connection": "^1.0.1",
-    "hoek": "^4.1.0",
-    "inert": "^4.1.0",
-    "joi": "^10.2.2",
-    "jsonwebtoken": "^7.3.0",
-    "lodash": "^4.17.4",
-    "mongoose": "^4.8.6",
-    "vision": "^4.1.1",
-    "winston": "^2.3.1"
+    "bluebird": "^3.5.1",
+    "dotenv": "^5.0.1",
+    "good": "^8.1.1",
+    "hapi": "^17.4.0",
+    "hapi-auth-jwt2": "^8.1.0",
+    "hapi-good-winston": "^1.1.4",
+    "hapi-mongoose-connection": "^2.0.0",
+    "hoek": "^5.0.3",
+    "inert": "^5.1.0",
+    "joi": "^13.3.0",
+    "jsonwebtoken": "^8.2.1",
+    "lodash": "^4.17.10",
+    "mongoose": "^5.1.0",
+    "vision": "^5.3.2",
+    "winston": "^2.4.2"
   }
 }

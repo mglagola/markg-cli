@@ -75,12 +75,12 @@ function questions (name, {
             type: 'input',
             name: 'expoSDKVersion',
             message: 'What expo sdk version would you like to use?',
-            default: '25.0.0',
+            default: '27.0.0',
         }, {
             type: 'input',
             name: 'reactVersion',
             message: 'What react version would you like to use?',
-            default: '16.2.0',
+            default: '16.3.1',
         }, {
             type: 'input',
             name: 'bundleId',

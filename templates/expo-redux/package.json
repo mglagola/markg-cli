@@ -20,11 +20,11 @@
     "inc:build": "exptool inc:build"
   },
   "dependencies": {
-    "expo": "^25.0.0",
+    "expo": "^{{expoSDKVersion}}",
     "lodash": "^4.17.5",
     "query-string": "^5.1.0",
-    "react": "16.2.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-25.0.0.tar.gz",
+    "react": "{{reactVersion}}",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-{{expoSDKVersion}}.tar.gz",
     "react-navigation": "^1.5.2",
     "react-redux": "^5.0.7",
     "recompose": "^0.26.0",

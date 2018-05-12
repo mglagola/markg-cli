@@ -1,9 +1,7 @@
-'use strict';
-
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcryptjs');
-const omit = require('lodash/omit');
+const F = require('lodash/fp');
 const saltRounds = process.env.BCRYPT_PASSWORD_SALT_ROUNDS || 10;
 
 const UserSchema = new Schema({
@@ -51,7 +49,7 @@ UserSchema.methods.comparePassword = function(candidatePassword) {
 };
 
 UserSchema.methods.toJSON = function () {
-    return omit(this.toObject(), 'password');
+    return F.omit(['password'], this.toObject());
 };
 
 module.exports = mongoose.model('User', UserSchema);

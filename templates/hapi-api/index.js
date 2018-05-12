@@ -1,6 +1,10 @@
 /* eslint no-process-exit: 0 */
 
-'use strict';
+Error.from = function (message, statusCode = 500) {
+    const error = new Error(message);
+    error.statusCode = statusCode;
+    return error;
+};
 
 global.Promise = require('bluebird');
 
@@ -24,16 +28,15 @@ const Config = require('./config');
 const Routes = require('./routes');
 const HapiMongoose = require('hapi-mongoose-connection');
 const Auth = require('./middleware/auth');
+const Pkg = require('./package.json');
 
 if (!Config.JWT_SECRET) {
     console.error('JWT_SECRET is not set!');
     process.exit(1);
 }
 
-const server = new Hapi.Server(Config.serverOptions);
-
 const GoodSetup = {
-    register: HapiGood,
+    plugin: HapiGood,
     options: {
         reporters: {
             winston: [HapiGoodWinston(Winston)],
@@ -42,43 +45,44 @@ const GoodSetup = {
 };
 
 const MongooseSetup = {
-    register: HapiMongoose,
+    plugin: HapiMongoose,
     options: Config.mongooseOptions,
 };
 
 const AuthSetup = {
-    register: Auth,
+    plugin: Auth,
     options: {
         key: Config.JWT_SECRET,
     },
 };
 
 const RouteSetup = {
+    name: 'Api',
+    version: Pkg.version,
     register: Routes,
 };
 
-server.connection(Config.connection);
+(async () => {
+    try {
+        const server = new Hapi.Server(Config.serverOptions);
 
-server.register([
-    GoodSetup,
-    Vision,
-    Inert,
-    MongooseSetup,
-    HapiAuthJwt,
-    AuthSetup,
-    RouteSetup,
-], (err) => {
-    if (err) {
-        throw err;
-    }
+        const plugins = [
+            GoodSetup,
+            Vision,
+            Inert,
+            MongooseSetup,
+            HapiAuthJwt,
+            AuthSetup,
+            RouteSetup,
+        ];
+        await Promise.each(plugins, plugin => server.register(plugin));
 
-    server.start((err) => {
-        if (err) {
-            console.error(`Server failed to start - ${err.message}`);
-            process.exit(1);
-        }
+        await server.start();
 
         console.log('NODE_ENV:', process.env.NODE_ENV);
         console.log('Server running at:', server.info.uri);
-    });
-});
+
+    } catch (error) {
+        console.error(error);
+    }
+})();

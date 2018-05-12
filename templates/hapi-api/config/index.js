@@ -1,5 +1,3 @@
-'use strict';
-
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const JWT_SECRET = process.env.JWT_SECRET;
 const MONGO_URI = process.env.MONGO_URI;
@@ -25,13 +23,7 @@ module.exports = {
     },
     serverOptions: {
         debug: { request: ['error'] },
-        connections: {
-            routes: {
-                files: {
-                    relativeTo: Path.join(__dirname, '../public'),
-                },
-            },
-        },
+        ...connection,
     },
     mongooseOptions: {
         uri: MONGO_URI,

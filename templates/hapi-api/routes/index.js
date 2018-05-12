@@ -1,25 +1,23 @@
-'use strict';
+const wrapRouteWithTryCatch = require('../utils/wrap-route-try-catch');
 
 const User = require('./user');
 
 const defaults = {
-    enableAuth: true,
+    enableAuth: false,
 };
 
-module.exports.register = function register (server, options, next) {
+function register (server, options, next) {
     options = Object.assign({}, defaults, options);
 
-    server.route([
-        { path: '/', method: 'GET', config: { auth: false }, handler: (req, reply) => reply({ success: true }) },
+    const routes = [
+        { method: 'GET', path: '/', config: { auth: false, handler: (req, reply) => ({ success: true }) } },
 
-        { method: 'POST', path: '/api/v2/login', config: User.login },
-        { method: 'POST', path: '/api/v2/register', config: User.create },
-    ]);
+        { method: 'POST', path: '/api/v1/auth', config: User.auth },
+    ];
 
-    next();
+    server.route(
+        routes.map(wrapRouteWithTryCatch)
+    );
 };
 
-module.exports.register.attributes = {
-    name: 'Water',
-    version: '1.0.0',
-};
+module.exports = register;

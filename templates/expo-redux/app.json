@@ -4,7 +4,7 @@
     "description": "",
     "slug": "",
     "privacy": "unlisted",
-    "sdkVersion": "25.0.0",
+    "sdkVersion": "{{expoSDKVersion}}",
     "platforms": [
       "ios",
       "android"
