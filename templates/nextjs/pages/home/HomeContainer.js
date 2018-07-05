@@ -1,6 +1,5 @@
-import withRedux from 'next-redux-wrapper';
 import compose from 'recompose/compose';
-import createStore from '../../store/create-store';
+import { connect } from 'react-redux';
 import withGetInitialProps from '../../utils/with-get-initial-props';
 import withLayout from '../../utils/with-layout';
 import Home from './Home';
@@ -16,7 +15,7 @@ const getInitialProps = async function ({ store, req }) {
 };
 
 export default compose(
-    withRedux(createStore, mapStateToProps, null),
+    connect(mapStateToProps),
     withGetInitialProps(getInitialProps),
     withLayout(DefaultLayout)
 )(Home);
