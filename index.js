@@ -73,9 +73,14 @@ function questions (name, {
     if (askExpoInfo) {
         [{
             type: 'input',
+            name: 'slug',
+            message: 'What expo slug would you like to use?',
+            default: 'demo',
+        }, {
+            type: 'input',
             name: 'expoSDKVersion',
             message: 'What expo sdk version would you like to use?',
-            default: '27.0.0',
+            default: '28.0.0',
         }, {
             type: 'input',
             name: 'reactVersion',
@@ -189,9 +194,9 @@ program
     }));
 
 program
-    .command('nextjs [name]')
+    .command('nextjs:bare')
     .description('Generates a simple nextjs starter project')
-    .option('-y, --skip-default-questions')    
+    .option('-y, --skip-default-questions')
     .action(act(async (name, options) => {
         const data = await prompt(
             questions(name),
@@ -200,6 +205,27 @@ program
         const outputDir = outputDirFromName(data.name);
         await create({ outputDir, data, template: 'nextjs', skipCompileForFileExtensions: ['js', 'css'] });
         logSuccessOutput({ outputDir });        
+        return true;
+    }));
+
+program
+    .command('nextjs:native')
+    .description('Generates a simple nextjs react-native(web) starter project')
+    .option('-y, --skip-default-questions')
+    .action(act(async (name, options) => {
+        const data = await prompt(
+            questions(name, { askExpoInfo: true }),
+            options
+        );
+        const outputDir = outputDirFromName(data.name);
+        await create({
+            outputDir,
+            data,
+            template: 'nextjs-rn',
+            skipCompileForFileExtensions: ['js', 'css', 'png', 'ico'],
+            explicitCompilePaths: ['config/index.js'],
+        });
+        logSuccessOutput({ outputDir });
         return true;
     }));
 
@@ -214,7 +240,7 @@ program
         );
         const outputDir = outputDirFromName(data.name);
         await create({ outputDir, data, template: 'expo-bare', skipCompileForFileExtensions: ['js', 'png'] });
-        logSuccessOutput({ outputDir });        
+        logSuccessOutput({ outputDir });
         return true;
     }));
 
@@ -259,7 +285,7 @@ program
         );
         const outputDir = outputDirFromName(data.name);
         await create({ outputDir, data, template: 'cli-commander' });
-        logSuccessOutput({ outputDir });        
+        logSuccessOutput({ outputDir });
         return true;
     }));
 

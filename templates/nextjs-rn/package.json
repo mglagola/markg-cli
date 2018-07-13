@@ -1,0 +1,62 @@
+{
+  "main": "node_modules/expo/AppEntry.js",
+  "private": true,
+  "engines": {
+    "node": ">=9.6.1"
+  },
+  "author": {
+    "name": ""
+  },
+  "scripts": {
+    "start:web": "node server.js",
+    "build:web": "cp .babelrc.web .babelrc; next build",
+    "pre:native": "cp .babelrc.native .babelrc",
+    "dev:web": "cp .babelrc.web .babelrc; NODE_ENV=development node server.js",
+    "dev:native": "npm run pre:native; exp start --dev --tunnel",
+    "build:all:production": "exp build:android --release-channel production --non-interactive --no-publish; curl -o app.apk \"$(exp url:apk --non-interactive)\"; exp build:ios --release-channel production --non-interactive --no-publish; curl -o app.ipa \"$(exp url:ipa --non-interactive)\"",
+    "inc:build": "exptool inc:build",
+    "trigger:build:production": "./bin/trigger-prod-build.sh"
+  },
+  "dependencies": {
+    "expo": "^{{expoSDKVersion}}",
+    "express": "^4.16.3",
+    "isomorphic-unfetch": "^2.0.0",
+    "lodash": "^4.17.10",
+    "next": "^6.1.1",
+    "next-redux-wrapper": "^2.0.0-beta.6",
+    "nprogress": "^0.2.0",
+    "query-string": "^6.1.0",
+    "react": "{{reactVersion}}",
+    "react-art": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-{{expoSDKVersion}}.tar.gz",
+    "react-native-web": "^0.8.8",
+    "react-navigation": "^2.6.2",
+    "react-redux": "^5.0.7",
+    "recompose": "^0.27.1",
+    "redux": "^4.0.0",
+    "redux-logger": "^3.0.6",
+    "redux-persist": "^5.10.0",
+    "redux-request-maker": "^2.0.0",
+    "redux-thunk": "^2.3.0",
+    "style-constraints": "^0.1.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.6",
+    "babel-plugin-module-resolver": "^3.1.1",
+    "babel-plugin-react-native-web": "^0.8.8",
+    "babel-preset-expo": "^4.0.0",
+    "eslint": "^5.1.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-config-standard-react": "^6.0.0",
+    "eslint-plugin-babel": "^5.1.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jsx-a11y": "^6.1.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-react": "^7.10.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "exptool": "^0.5.3",
+    "redux-devtools-extension": "^2.13.5"
+  }
+}

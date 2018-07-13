@@ -9,18 +9,21 @@
       "ios",
       "android"
     ],
-    "version": "1.0.0",
+    "version": "{{version}}",
     "orientation": "portrait",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#fffff"
     },
     "ios": {
-      "supportsTablet": false,
+      "supportsTablet": true,
       "icon": "./assets/icon.png",
       "bundleIdentifier": "{{bundleId}}",
-      "buildNumber": "1"
+      "buildNumber": "1",
+      "config": {
+        "usesNonExemptEncryption": false
+      }
     },
     "android": {
       "icon": "./assets/icon.png",
