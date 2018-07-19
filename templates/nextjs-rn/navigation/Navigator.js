@@ -2,6 +2,7 @@ import F from 'lodash/fp';
 import { createStackNavigator as _createStackNavigator } from 'react-navigation';
 import { NavigationStyles } from '../constants/styles';
 import Config from '../config';
+import RouteScreens from '../config/route-screens';
 
 const routes = F.keys(Config.routes)
     .filter(routeName => {
@@ -10,7 +11,9 @@ const routes = F.keys(Config.routes)
     })
     .reduce((accum, routeName) => {
         const route = Config.routes[routeName];
-        accum[routeName] = Object.assign({}, route);
+        accum[routeName] = Object.assign({}, route, {
+            screen: RouteScreens[route.screen],
+        });
         return accum;
     }, {});
 

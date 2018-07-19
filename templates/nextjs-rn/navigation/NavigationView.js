@@ -47,7 +47,6 @@ class NavigationView extends React.Component {
     render () {
         const { statusBarStyle } = this.state;
         const Nav = this.navigator;
-        console.log('🙅', Nav);
         return (
             <View style={styles.container}>
                 {Platform.OS === 'ios' && <StatusBar barStyle={statusBarStyle} />}

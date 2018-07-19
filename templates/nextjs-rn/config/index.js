@@ -24,11 +24,11 @@ export default {
     },
     routes: {
         Splash: {
-            screen: RouteScreens.Splash,
+            screen: null,
             path: '/',
         },
         Auth: {
-            screen: RouteScreens.Auth,
+            screen: 'Auth',
             statusBarStyle: 'light-content',
             path: ['/register', '/login'],
         },
