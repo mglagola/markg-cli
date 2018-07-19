@@ -1,0 +1,50 @@
+{
+  "private": true,
+  "engines": {
+    "node": ">={{nodeVersion}}"
+  },
+  "author": {
+    "name": "{{author}}"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "build": "next build",
+    "dev": "NODE_ENV=development node server.js"
+  },
+  "dependencies": {
+    "express": "^4.16.3",
+    "isomorphic-unfetch": "^2.0.0",
+    "lodash": "^4.17.10",
+    "next": "^6.1.1",
+    "next-redux-wrapper": "^2.0.0",
+    "nprogress": "^0.2.0",
+    "query-string": "^6.1.0",
+    "react": "^16.4.1",
+    "react-art": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-native-web": "^0.8.9",
+    "react-redux": "^5.0.7",
+    "recompose": "^0.27.1",
+    "redux": "^4.0.0",
+    "redux-logger": "^3.0.6",
+    "redux-persist": "^5.10.0",
+    "redux-request-maker": "^2.0.0",
+    "redux-thunk": "^2.3.0",
+    "style-constraints": "^0.2.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.6",
+    "babel-plugin-module-resolver": "^3.1.1",
+    "eslint": "^5.1.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-config-standard-react": "^6.0.0",
+    "eslint-plugin-babel": "^5.1.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-react": "^7.10.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "redux-devtools-extension": "^2.13.5"
+  }
+}

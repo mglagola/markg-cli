@@ -2,10 +2,10 @@
   "main": "node_modules/expo/AppEntry.js",
   "private": true,
   "engines": {
-    "node": ">=9.6.1"
+    "node": ">={{nodeVersion}}"
   },
   "author": {
-    "name": ""
+    "name": "{{author}}"
   },
   "scripts": {
     "start:web": "node server.js",
@@ -39,7 +39,7 @@
     "redux-persist": "^5.10.0",
     "redux-request-maker": "^2.0.0",
     "redux-thunk": "^2.3.0",
-    "style-constraints": "^0.1.2"
+    "style-constraints": "^0.2.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.6",

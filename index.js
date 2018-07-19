@@ -230,6 +230,27 @@ program
     }));
 
 program
+    .command('nextjs:rnw')
+    .description('Generates a simple nextjs react-native-web starter project (DOES NOT INCLUDE EXPO)')
+    .option('-y, --skip-default-questions')
+    .action(act(async (name, options) => {
+        const data = await prompt(
+            questions(name),
+            options
+        );
+        const outputDir = outputDirFromName(data.name);
+        await create({
+            outputDir,
+            data,
+            template: 'nextjs-rnw',
+            skipCompileForFileExtensions: ['js', 'css', 'png', 'ico'],
+            explicitCompilePaths: ['config/index.js'],
+        });
+        logSuccessOutput({ outputDir });
+        return true;
+    }));
+
+program
     .command('expo:bare [name]')
     .description('Generates a bare expo (react-native) starter project')
     .option('-y, --skip-default-questions')    
