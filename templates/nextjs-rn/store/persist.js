@@ -3,10 +3,11 @@ import {
     persistCombineReducers as _persistCombineReducers,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import Config from '../config';
 
 export const DEFAULT_PERSIST_CONFIG = {
     key: 'root',
-    whitelist: ['Auth'],
+    whitelist: Config.reduxPersist.whitelist,
     storage,
 };
 
