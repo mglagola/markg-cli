@@ -1,5 +1,3 @@
-import RouteScreens from './route-screens';
-
 export default {
     web: {
         defaultHtmlTitle: '{{name}}',
