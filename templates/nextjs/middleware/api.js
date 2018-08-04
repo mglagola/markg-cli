@@ -1,16 +1,15 @@
 const callAPIMiddleware = ({ dispatch, getState }) => (next) => async (action) => {
-    const {
-        types,
-        callAPI,
-        shouldCallAPI = () => true,
-        payload = {},
-    } = action;
+    const { types, callAPI, shouldCallAPI = () => true, payload = {} } = action;
 
     if (!types) {
         return next(action);
     }
 
-    if (!Array.isArray(types) || types.length !== 3 || !types.every(type => typeof type === 'string')) {
+    if (
+        !Array.isArray(types) ||
+        types.length !== 3 ||
+        !types.every((type) => typeof type === 'string')
+    ) {
         throw new Error('Expected an array of three string types.');
     }
 
@@ -23,7 +22,7 @@ const callAPIMiddleware = ({ dispatch, getState }) => (next) => async (action) =
         return;
     }
 
-    const [ requestType, successType, failureType ] = types;
+    const [requestType, successType, failureType] = types;
 
     dispatch({
         type: requestType,
@@ -33,9 +32,11 @@ const callAPIMiddleware = ({ dispatch, getState }) => (next) => async (action) =
     try {
         const response = await callAPI(state);
 
-        if (response.statusCode
-            && (response.statusCode < 200 || response.statusCode > 299)
-            && response.error) {
+        if (
+            response.statusCode &&
+            (response.statusCode < 200 || response.statusCode > 299) &&
+            response.error
+        ) {
             dispatch({
                 type: failureType,
                 error: response,

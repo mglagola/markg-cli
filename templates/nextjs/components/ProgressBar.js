@@ -30,12 +30,12 @@ const ProgressBar = () => (
             width: 100px;
             height: 100%;
             box-shadow: 0 0 10px ${Colors.progressBar}, 0 0 5px ${Colors.progressBar};
-            opacity: 1.0;
+            opacity: 1;
             -webkit-transform: rotate(3deg) translate(0px, -4px);
-                -ms-transform: rotate(3deg) translate(0px, -4px);
-                    transform: rotate(3deg) translate(0px, -4px);
+            -ms-transform: rotate(3deg) translate(0px, -4px);
+            transform: rotate(3deg) translate(0px, -4px);
         }
-    `}</style>        
+    `}</style>
 );
 
 export default ProgressBar;

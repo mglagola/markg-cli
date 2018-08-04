@@ -1,4 +1,3 @@
-
 export default {
     site: {
         primaryBackgroundColor: '#E8EBE9',

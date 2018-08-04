@@ -1,7 +1,3 @@
-// @flow
-
-'use strict';
-
 import { combineReducers } from 'redux';
 import Search from './Search';
 

@@ -8,7 +8,8 @@ const Meta = () => (
             <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         </Head>
         <style jsx global>{`
-            html, body {
+            html,
+            body {
                 font-family: HelveticaNueue, Helvetica, Arial, sans-sarif;
                 padding: 0;
                 margin: 0;

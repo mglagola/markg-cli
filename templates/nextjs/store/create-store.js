@@ -6,16 +6,15 @@ import rootReducer from '../reducers';
 
 const isDev = process.env.NODE_ENV === 'development';
 
-const middleware = isDev
-    ? [thunkMiddleware, api, createLogger()]
-    : [thunkMiddleware, api];
+const middleware = isDev ? [thunkMiddleware, api, createLogger()] : [thunkMiddleware, api];
 
-const createStoreWithMiddleware = compose(
-    applyMiddleware(...middleware)
-)(createStore);
+const createStoreWithMiddleware = compose(applyMiddleware(...middleware))(createStore);
 
-function configureStore (initialState = {}) {
-    const extra = typeof window === 'undefined' ? undefined : window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+function configureStore(initialState = {}) {
+    const extra =
+        typeof window === 'undefined'
+            ? undefined
+            : window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
     return createStoreWithMiddleware(rootReducer, initialState, extra);
 }
 

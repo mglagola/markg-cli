@@ -6,7 +6,7 @@ const isDev = process.env.NODE_ENV !== 'production';
 const app = next({ dev: isDev });
 const handle = app.getRequestHandler();
 
-async function start () {
+async function start() {
     await app.prepare();
     const server = express();
 
@@ -20,7 +20,7 @@ async function start () {
     });
 }
 
-(async function () {
+(async function() {
     try {
         await start();
     } catch (error) {
