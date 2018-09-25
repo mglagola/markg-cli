@@ -1,5 +1,5 @@
 {
-  "name": "markg",
+  "name": "@mglagola/markg",
   "version": "4.1.2",
   "description": "Opinionated template generator",
   "main": "index.js",
